@@ -7,10 +7,17 @@
 <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />-->
 <!--<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>-->
 <link rel="stylesheet" href="js/leaflet/leaflet.css" />
+<link rel="stylesheet" href="leaflet/plugins/L.Control.MousePosition.css" />
+<link rel="stylesheet" href="leaflet/plugins/leaflet-search.css" />
 <script src="js/leaflet/leaflet.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/jquery.csv.js"></script>
+<script src="js/leaflet/plugins/L.Control.MousePosition.js"></script>
+<script src="js/leaflet/plugins/L.Control.Watermark.js"></script>
+<script src="js/leaflet/plugins/L.Control.Select.js"></script>
+<script src="js/leaflet/plugins/leaflet-search.js"></script>
+
 </head>
 
 <body>
@@ -37,7 +44,7 @@
 	
 	//Make it easier to input Latitude coordinates for the ark map.
 	var arklat = function(x) {
-			n = 100-x
+			n = x
 		return n;
 	}
 
@@ -306,6 +313,17 @@ function exportData() {
 	/*Create PopUp text box
 	L.marker(     alpha_camp).addTo(arkabmap).bindPopup(      'Alpha Camp');
 	*/
+
+//Copied from Jerodar's code
+    // Watermark control with the Cardinal Guild logo
+    L.control.watermark({
+      position: 'bottomright',
+      width: '100px',
+      url: 'https://www.worldsadrift.com/forums/topic/cardinal-guild-map-making-navigation-and-helmsmanship/'
+    }).addTo(arkabmap);
+
+    // Cursor coordinate display
+    L.control.mousePosition({separator: ',', lngFirst: false, numDigits: 2}).addTo(arkabmap);
 
 </script>
 
