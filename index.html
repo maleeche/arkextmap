@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Maleeche's Janky WA Map</title>
+
 <link rel="stylesheet" href="css/mapStyles.css">
-<!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />-->
-<!--<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>-->
 <link rel="stylesheet" href="js/leaflet/leaflet.css" />
 <link rel="stylesheet" href="leaflet/plugins/L.Control.MousePosition.css" />
 <link rel="stylesheet" href="leaflet/plugins/leaflet-search.css" />
+
 <script src="js/leaflet/leaflet.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery.js"></script>
@@ -28,16 +28,6 @@
   <label for="files">Load Map Data...</label>
 </div>
 
-<!--Allow users to enter custom points - Temporarily Disabled.
-<div id="user_input" style="width: 1280px; height: 50px;">
-	LAT:<input type="text" id="lat">
-	LONG:<input type="text" id="lng">
-	POPUP:<input type="text" id="popuptext" value="POPUPTEXT">
-	GROUP:<input type="text" id="grouptext" value="GROUP">
-	<button onclick="createPoint()">Create Point</button>
-</div>
--->
-
 <div id="map" class="mapimage"></div>
 <script>
 	//HELPER FUNCTIONS---------------------------------------------------------
@@ -48,57 +38,7 @@
 		return n;
 	}
 
-/*Create new point on map and save to csv file---------------------------------
-
-	//Creates a new point on the map that is entered by user.
-	function createPoint()
-	{
-	var lat = document.getElementById('lat').value;
-	var lng = document.getElementById('lng').value;
-	var pop = document.getElementById('popuptext').value;
-	var group = document.getElementById('grouptext').value;
-	var latint = parseInt(lat);
-	var longint = parseInt(lng);
-	var mora = new L.LatLng(arklat(latint), longint),
-	MSD = new L.Marker(mora);
-	arkabmap.addLayer(MSD);
-	MSD.bindPopup(pop);
-	//var saveArray = [[lat,lng,pop,group]];
-	var formData = new FormData();
-	formData.append('myname','')
-	}
-
-Need to work more on this section when I have time.  Right now users can enter
-points and they show up on the map, but they cannot be saved.  Potential code
-that needs to be modified and tested:
-
-function exportData() {
-    var data = '';
-    for (var i=1;i<=2;i++) {
-        var sep = '';
-        for (var j=1;j<=4;j++) {
-            data +=  sep + document.getElementById(i + '_' + j).value;
-            sep = ',';
-        }
-        data += '\r\n';
-    }
-    var exportLink = document.createElement('a');
-    exportLink.setAttribute('href', 'data:text/csv;base64,' + window.btoa(data));
-    exportLink.appendChild(document.createTextNode('test.csv'));
-    document.getElementById('results').appendChild(exportLink);
-}
-
-*/
-//End of "Appends csv file" section--------------------------------------------
-
 //Creates points from csv file-------------------------------------------------
-    //Handles the file browser.
-    //$(document).ready(function() {
-     // if(isAPIAvailable()) {
-       // $('#files').bind('change', handleFileSelect);
-      //}
-    //});
-
     function isAPIAvailable() {
       // Check for the various File API support.
       if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -122,13 +62,7 @@ function exportData() {
       }
     }
 
-   // function handleFileSelect(evt) {
-   //   var files = evt.target.files; // FileList object
-   //   var file = files[0];
-      // read the file contents
-   //   return printTable(file);
-   // }
-
+    // Copied from Jerodar's Code
     // Load the POI data
     // Async Load and read the csv file
     $.ajax({
@@ -145,13 +79,7 @@ function exportData() {
     });
 
     //This is the function that actually converts csv to array and parses the data.
-    function printTable(data) {
-      //var reader = new FileReader();
-      //reader.readAsText(file);
-      //reader.onload = function(event){
-        //var csv = event.target.result;
-        //var data = $.csv.toArrays(csv);
-		//var arrayLength = data.length;    
+    function printTable(data) {   
         for (var i = 1; i < data.length; i++) {
         	if (data[i][3]){
         		var pop = data[i][3];
@@ -217,12 +145,9 @@ function exportData() {
     			radius: 5
 			});
 			MSD.addTo(window[group.replace(/\s/g, '')]);
-			//arkabmap.addLayer(MSD);
 			MSD.bindPopup(pop);
 		}
-      }
-      //reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
-    //}
+  }
 //End of the "Create points from csv file" section-------------------------------
 
 	//VARIABLES----------------------------------------------------------------
@@ -245,27 +170,24 @@ function exportData() {
 	var chargeNodes = L.layerGroup();
 	var rockDrakeEggs = L.layerGroup();
 
-	/*Define A.L.P.H.A. base locations
-	L.marker([arklat(34.9),61.6]).bindPopup("Waterfall Base | 34.9, 61.6").addTo(bases),
-	L.marker([arklat(33.9),60.3]).bindPopup("Maleeche's Brewery").addTo(bases);
-	L.marker([arklat(39.3),60.7]).bindPopup("Maleeche's Ledge").addTo(bases);
-	*/
-
 	//MAP CONFIGURATION--------------------------------------------------------
 	
 	//Setup the coordinate system bounds and the image to overlay them on.
 	var bounds = [[-1.10, -1.625], [101.9, 99.75]];
 	var baseMap = L.imageOverlay('images/NewFoundationRaw.png', bounds);
+  //var maxBounds = [[-150,-150],[150,150]];
 
 	//Initialize the map object
 	var arkabmap = L.map('map', {
 		crs: L.CRS.Simple,
-		minZoom: -5,
+		minZoom: 2,
+    maxZoom: 5,
 		layers: [baseMap, bases]
 	});
 
 	//Set initial map view position and zoom.
 	arkabmap.setView( [arklat(50), 50], 3);
+  //arkabmap.setMaxBounds(maxBounds);
 
 	//LAYER CONFIGURATION------------------------------------------------------
 	
