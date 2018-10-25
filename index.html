@@ -93,11 +93,11 @@ function exportData() {
 
 //Creates points from csv file-------------------------------------------------
     //Handles the file browser.
-    $(document).ready(function() {
-      if(isAPIAvailable()) {
-        $('#files').bind('change', handleFileSelect);
-      }
-    });
+    //$(document).ready(function() {
+     // if(isAPIAvailable()) {
+       // $('#files').bind('change', handleFileSelect);
+      //}
+    //});
 
     function isAPIAvailable() {
       // Check for the various File API support.
@@ -122,22 +122,37 @@ function exportData() {
       }
     }
 
-    function handleFileSelect(evt) {
-      var files = evt.target.files; // FileList object
-      var file = files[0];
+   // function handleFileSelect(evt) {
+   //   var files = evt.target.files; // FileList object
+   //   var file = files[0];
       // read the file contents
-      return printTable(file);
-    }
+   //   return printTable(file);
+   // }
+
+    // Load the POI data
+    // Async Load and read the csv file
+    $.ajax({
+      url: 'data/markers.csv',
+      type: 'GET',
+      cache: false,
+      success: function (text) {
+        var data = $.csv.toArrays(text);
+        printTable(data);
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.error(errorThrown);
+      }
+    });
 
     //This is the function that actually converts csv to array and parses the data.
-    function printTable(file) {
-      var reader = new FileReader();
-      reader.readAsText(file);
-      reader.onload = function(event){
-        var csv = event.target.result;
-        var data = $.csv.toArrays(csv);
-		var arrayLength = data.length;    
-        for (var i = 1; i < arrayLength; i++) {
+    function printTable(data) {
+      //var reader = new FileReader();
+      //reader.readAsText(file);
+      //reader.onload = function(event){
+        //var csv = event.target.result;
+        //var data = $.csv.toArrays(csv);
+		//var arrayLength = data.length;    
+        for (var i = 1; i < data.length; i++) {
         	if (data[i][3]){
         		var pop = data[i][3];
         	} else {
@@ -205,9 +220,9 @@ function exportData() {
 			//arkabmap.addLayer(MSD);
 			MSD.bindPopup(pop);
 		}
-      };
-      reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
-    }
+      }
+      //reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
+    //}
 //End of the "Create points from csv file" section-------------------------------
 
 	//VARIABLES----------------------------------------------------------------
