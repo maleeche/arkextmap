@@ -1,6 +1,6 @@
 L.Control.Watermark = L.Control.extend({
   options: {
-    image: 'images/cglogo.png',
+    image: 'images/nocturnus_logo.png',
     width: '200px',
     url: false
   },
