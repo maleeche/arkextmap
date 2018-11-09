@@ -23,8 +23,8 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(100 - e.latlng.lat) : L.Util.formatNum(100 - e.latlng.lat, this.options.numDigits);
+    var lng = this.options.lngFormatter ? this.options.lngFormatter((e.latlng.lng - 50)*8000) : L.Util.formatNum((e.latlng.lng - 50)*8000, this.options.numDigits);
+    var lat = this.options.latFormatter ? this.options.latFormatter(((100 - e.latlng.lat)-50)*8000) : L.Util.formatNum(((100 - e.latlng.lat)-50)*8000, this.options.numDigits);
     var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
     var prefixAndValue = this.options.prefix + ' ' + value;
     this._container.innerHTML = prefixAndValue;

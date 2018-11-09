@@ -167,21 +167,21 @@
 	var gem_green = L.layerGroup();
 	var gem_red = L.layerGroup();
 	var bases = L.layerGroup();
-	var chargeNodes = L.layerGroup();
+	var POI = L.layerGroup();
 	var rockDrakeEggs = L.layerGroup();
 
 	//MAP CONFIGURATION--------------------------------------------------------
 	
 	//Setup the coordinate system bounds and the image to overlay them on.
 	var bounds = [[-1.10, -1.625], [101.9, 99.75]];
-	var baseMap = L.imageOverlay('images/Map_Aberration.png', bounds);
+	var baseMap = L.imageOverlay('images/arkExtMap2.png', bounds);
   //var maxBounds = [[-150,-150],[150,150]];
 
 	//Initialize the map object
 	var arkabmap = L.map('map', {
 		crs: L.CRS.Simple,
 		minZoom: 2,
-    maxZoom: 5,
+    maxZoom: 7,
 		layers: [baseMap, bases]
 	});
 
@@ -193,13 +193,13 @@
 	
 	//Layers
 	var baseLayers = {
-		"Aberration": baseMap
+		"Extinction": baseMap
 	};
 
 	var overlays = {
 		"Bases": bases,
 		"Rock Drake Eggs": rockDrakeEggs,
-		"Charge Nodes": chargeNodes,
+		"Points of Interest": POI,
 		"Crystal": crystal,
 		"Metal": metal,
 		"Rich Metal": metal_rich,
@@ -261,6 +261,9 @@
 
     // Cursor coordinate display
     L.control.mousePosition({separator: ',', lngFirst: false, numDigits: 2}).addTo(arkabmap);
+    // Player position and lat/long conversion formulas
+    // [lat/long] = 50.0 + ([Y/X] / 8000.0)
+    // [Y/X] = ([lat/long] - 50) * 8000.0
 
 </script>
 
