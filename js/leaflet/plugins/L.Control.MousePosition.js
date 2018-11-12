@@ -1,6 +1,24 @@
+//Fixes latitude so that it lines up with the Ark explorer map correctly.
+  var arklat = function(x) {
+      n = 100 - x
+    return n;
+  }
+
+//Used to convert Latitude to in-game player position.
+    var pposlat = function(x) {
+      n = (arklat(x) - 50) * 8000
+    return n;
+  }
+
+//Used to convert Longitude to in-game player position.
+    var pposlng = function(x) {
+      n = (x - 50) * 8000
+    return n;
+  }
+
 L.Control.MousePosition = L.Control.extend({
   options: {
-    position: 'bottomleft',
+    position: 'topleft',
     separator: ' : ',
     emptyString: 'Unavailable',
     lngFirst: false,
@@ -23,8 +41,8 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter((e.latlng.lng - 50)*8000) : L.Util.formatNum((e.latlng.lng - 50)*8000, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(((100 - e.latlng.lat)-50)*8000) : L.Util.formatNum(((100 - e.latlng.lat)-50)*8000, this.options.numDigits);
+    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
+    var lat = this.options.latFormatter ? this.options.latFormatter(arklat(e.latlng.lat)) : L.Util.formatNum(arklat(e.latlng.lat), this.options.numDigits);
     var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
     var prefixAndValue = this.options.prefix + ' ' + value;
     this._container.innerHTML = prefixAndValue;

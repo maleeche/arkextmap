@@ -82,7 +82,7 @@
     function printTable(data) {   
         for (var i = 1; i < data.length; i++) {
         	if (data[i][3]){
-        		var pop = data[i][3];
+        		var pop = "<dl><dt>" + data[i][3] + "</dt>" + "<center><dt>Lat " + data[i][0] + ", Lng " + data[i][1] + "</dt></center>";
         	} else {
         		var pop = "Lat " + data[i][0] + ", Lng " + data[i][1];
         	}
@@ -226,7 +226,7 @@
     	var coord = e.latlng
     	popup
         	.setLatLng(e.latlng)
-        	.setContent(arklat(coord.lat) + ", " + (coord.lng))
+        	.setContent("Lat " + arklat(coord.lat) + ", Lng " + (coord.lng))
         	.openOn(arkabmap);
 	}
 	arkabmap.on('click', onMapClick);
