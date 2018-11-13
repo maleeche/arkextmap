@@ -265,6 +265,66 @@
     // [lat/long] = 50.0 + ([Y/X] / 8000.0)
     // [Y/X] = ([lat/long] - 50) * 8000.0
 
+    // Displays a div containing the legend
+    var legend = L.control({position: 'topright'});
+    legend.onAdd = constructLegend;
+    legend.addTo(arkabmap);
+
+  function constructLegend(map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    var container = document.createElement('div');
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('Map Instructions'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('1. Click the Layers Group button in the top right'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('to select the markers you want to display on the map.'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('2. Click one of the markers on the map to get the'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('coordinates of that marker and a description (if applicable).'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('3. Click anywhere on the map to display a'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('popup with the coordinates of that position.'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('4. Use your mouse wheel to zoom in/out.'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('5. Click and hold down your left mouse button anywhere on the map,'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('then move your mouse around to drag the map view.'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('6. Use the Lat/Lng readout in the top left corner to'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('get coordinates without clicking on the map.'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('7. Here is a list of known base locations for deploying supply crates:'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('\xa0\xa0\xa0\xa0a. South Desert Base | Lat 84.9, Lng 74'));
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('\xa0\xa0\xa0\xa0b. North Desert Base | Lat 84.9, Lng 74'))    
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('\xa0\xa0\xa0\xa0c. Mikey\'s Waterfall Loft | Lat 47, Lng 57'))    
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('\xa0\xa0\xa0\xa0d. Dave\'s Base | Lat 48.4, Lng 29.5'))    
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createTextNode('\xa0\xa0\xa0\xa0e. EMS Owl Academy | Lat 17.3, Lng 78.8'))    
+    container.appendChild(document.createElement('br'));
+
+    container.appendChild(document.createElement('br'));
+    container.appendChild(document.createElement('br'));
+
+    div.innerHTML = container.innerHTML;
+    return div;
+  }
+
 </script>
 
 </body>
